@@ -1,12 +1,17 @@
-
-var topics = ['happy', 'sad', 'angry', 'pensive', 'jealous', 'ashamed', 'bored', 'exhausted', 'humorous', 'flirty'];
+$( document ).ready(function() {
+var topics = ['happy', 'sad', 'angry', 'pensive', 'jealous', 'ashamed', 'bored', 'exhausted', 'goofy', 'flirty'];
+var mostRecent;
+createBtns();
 
 //Create Buttons
+function createBtns () {
+    $('#buttons').empty();
 for (i = 0; i < topics.length; i++) {
     $('#buttons').append('<button type="button" class="topic-button" data-topic="' + topics[i] + '">'+ topics[i] + '</button>');
 }
+}
 //Displaying Gifs
-$('.topic-button').on('click', function () {
+$('#buttons').on('click', 'button', function () {
     topic = $(this).data('topic');
     $('#gifs').empty();
     $.ajax({
@@ -15,16 +20,17 @@ $('.topic-button').on('click', function () {
     }).then(function (response) {
             for (i = 0; i < 10; i++) {
 
-                var imgStill = response.data[i].images.fixed_width_still.url;
-                var imgAnimate = response.data[i].images.fixed_width.url;
+                var imgStill = response.data[i].images.fixed_height_still.url;
+                var imgAnimate = response.data[i].images.fixed_height.url;
                 var gif = '<img class="gif" data-state="still" src="' + imgStill + '" data-still="' + imgStill + '" data-animate="' + imgAnimate + '">';
                 var rating = '<div class="rating">' + response.data[i].rating + '</div>';
                 $('#gifs').append('<div class="display">' + gif + rating + '</div>');
             }
     })
 })
-//Play/Pause
+//Play/pause gifs
 $('#gifs').on('click', 'img', function () {
+    console.log(this);
     var state = $(this).data("state");
     if (state === "still") {
         $(this).attr("src", $(this).data("animate"));
@@ -35,3 +41,20 @@ $('#gifs').on('click', 'img', function () {
         $(this).data("state", "still");
     }
 })
+// Add new button
+$('#add').on('click', function (event) {
+    event.preventDefault();
+    if (($('#new-btn').val().trim()) === '') {
+        return;
+    }
+    mostRecent = $('#new-btn').val().trim();
+    topics.push(mostRecent);
+    createBtns();
+    $('#new-btn').val("");
+    $('[data-topic=' + mostRecent + ']').click().focus();
+})
+
+//=========================================================
+// createBtns();
+
+});

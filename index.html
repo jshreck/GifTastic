@@ -5,13 +5,29 @@
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-    <link rel='stylesheet' type='text/css' href='./assets/style.css'>
+    <link rel='stylesheet' type='text/css' href='./assets/style/reset.css'>
+    <link rel='stylesheet' type='text/css' href='./assets/style/style.css'>
     <title>GifTastic</title>
 </head>
 
 <body>
-    <div id='buttons'></div>
-    <div id='gifs'></div>
+    <div class='row'>
+        <div class='column btns-column'>
+            <div id='buttons'></div>
+        </div>
+        <div class='column add-btn-column'>
+            <form>
+                <p>Add a mood</p>
+                <input id='new-btn' type='text'>
+                <button id='add' type='submit'>Add</button>
+            </form>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='column gif-column'>
+            <div id='gifs'></div>
+        </div>
+    </div>
     <script src='https://code.jquery.com/jquery-3.3.1.js' integrity='sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=' crossorigin='anonymous'></script>
     <script type='text/javascript' src='./assets/javascript.js'></script>
 </body>
